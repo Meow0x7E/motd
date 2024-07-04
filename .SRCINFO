@@ -1,0 +1,16 @@
+pkgbase = motd
+	pkgver = 0.3.1
+	pkgrel = 1
+	url = https://github.com/Meow0x7E/motd
+	arch = any
+	license = MIT
+	depends = zsh
+	depends = figlet
+	optdepends = neofetch: 提供系统信息的展示,只需与 fastfetch 选其一
+	optdepends = fastfetch: 提供系统信息的展示，只需与 neofetch 选其一
+	optdepends = slow-scan-print: 花里胡哨的慢扫描打印，提供更好的视觉体验
+	optdepends = lolcat: 提供彩色文本输出，推荐使用 cargo 获取用 rust 进行重写的版本，提供最快的速度
+	source = https://github.com/Meow0x7E/motd-zsh/archive/refs/tags/v0.3.1.tar.gz
+	sha256sums = e26b58ecb307253e385736fdf8b86942ad3db7831de36ce438859c03eab287ae
+
+pkgname = motd
