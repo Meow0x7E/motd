@@ -5,7 +5,7 @@
 
 # Maintainer: Meow0x7E <Meow0x7E@outlook.com>
 pkgname=motd
-pkgver=0.3.2
+pkgver=1.0.0
 pkgrel=1
 epoch=
 pkgdesc="Message of the day for CLI"
@@ -16,19 +16,19 @@ groups=()
 depends=(
 	"zsh"
 	"figlet"
+	"git"
 )
 makedepends=()
 checkdepends=()
 optdepends=(
-	"fastfetch: system information display providing support for fetch modules, prioritized for use by fetch modules"
-	"neofetch: system information display, support for fetching modules"
-	"slow-scan-print: slow scan print"
-	"lolcat: color text output, recommended to use cargo to get the version rewritten with rust for fastest speed"
-
-	"fastfetch: 系统信息显示，支持获取模块，优先供获取模块使用"
-	"neofetch: 系统信息显示，支持提取模块"
+	"fastfetch: 系统信息显示，提供 fetch 模块功能"
+	"neofetch: 系统信息显示，提供 fetch 模块功能"
+	"uwufetch: 系统信息显示，提供 fetch 模块功能"
+	"screenfetch: 系统信息显示，提供 fetch 模块功能"
+	"hyfetch: 系统信息显示，提供 fetch 模块功能"
 	"slow-scan-print: 慢速扫描打印"
-	"lolcat: 彩色文本输出，建议使用 cargo 获得使用 rust 重写的版本，以获得最快速度"
+	"lolcat-rs: 彩色文本输出，建议使用，速度更快"
+	"lolcat: 彩色文本输出"
 )
 provides=()
 conflicts=()
@@ -37,16 +37,19 @@ backup=()
 options=()
 install=
 changelog=
-source=("https://github.com/Meow0x7E/motd-zsh/archive/refs/tags/v${pkgver}.tar.gz")
+source=("https://github.com/Meow0x7E/motd-zsh/archive/refs/tags/v1.0.0.tar.gz")
 noextract=()
-sha512sums=('5c8ce2bb9e142f640000cca0e6bcf18a58e02c23c5f23c195e79a68eb00a19fe00638e03ca8263a7022b8134d8d00e6d863733acc5182fbc7b93314e680e0427')
-b2sums=('bc33ff1c405bc9a9099e3edcbfdb8e1b8476d976d82a705960803797023a72e3473d25e6c1775f23cc25561c230addee33186d8447c036959436077e6fad1c26')
+sha512sums=('4c1fab279d1628413fcced905e853de316303ba91319f651937223501af6ceb6dbcb29d10318424cc11f724935aa5cf572b4fadb2515c96906838da48568885a')
+b2sums=('2e4127ccfb7e8605ea0a62d1c7217f5c03d1f9f23865e2fe80784d51f38d3881eb5769d4db006601d7a3333d4cca24815b659a8ad092813185e119a1bafdafc8')
 validpgpkeys=()
 
 package() {
 	cd "${srcdir}/motd-zsh-${pkgver}"
-	install -Dm 755 "motd.zsh" "${pkgdir}/usr/bin/motd"
-	install -Dm 644 "ANSI_Shadow_Meow0x7E_editor.flf" "${pkgdir}/usr/share/figlet/fonts/ANSI_Shadow_Meow0x7E_editor.flf"
+
+	install -Dm 755 motd.sh "${pkgdir}"/usr/bin/motd
+	install -Dm 644 motd.conf "${pkgdir}"/usr/share/motd.conf
+
+	find motd -type f -exec install -Dm 644 {} "${pkgdir}"/usr/lib/{} \;
 }
 
 # vim:set sts=2 ts=2 sw=2 noexpandtab:
