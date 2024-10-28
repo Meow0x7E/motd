@@ -5,7 +5,7 @@
 
 # Maintainer: Meow0x7E <Meow0x7E@outlook.com>
 pkgname=motd
-pkgver=0.3.2
+pkgver=1.1.0
 pkgrel=1
 epoch=
 pkgdesc="Message of the day for CLI"
@@ -20,13 +20,11 @@ depends=(
 makedepends=()
 checkdepends=()
 optdepends=(
-	"fastfetch: system information display providing support for fetch modules, prioritized for use by fetch modules"
-	"neofetch: system information display, support for fetching modules"
-	"slow-scan-print: slow scan print"
-	"lolcat: color text output, recommended to use cargo to get the version rewritten with rust for fastest speed"
-
-	"fastfetch: 系统信息显示，支持获取模块，优先供获取模块使用"
-	"neofetch: 系统信息显示，支持提取模块"
+	"fastfetch: 系统信息显示，fetch 模块需要"
+	"neofetch: 系统信息显示，fetch 模块需要"
+	"uwufetch: 系统信息显示，fetch 模块需要"
+	"screenfetch: 系统信息显示，fetch 模块需要"
+	"hyfetch: 系统信息显示，fetch 模块需要"
 	"slow-scan-print: 慢速扫描打印"
 	"lolcat: 彩色文本输出，建议使用 cargo 获得使用 rust 重写的版本，以获得最快速度"
 )
@@ -37,16 +35,18 @@ backup=()
 options=()
 install=
 changelog=
-source=("https://github.com/Meow0x7E/motd-zsh/archive/refs/tags/v${pkgver}.tar.gz")
+source=(https://ghp.ci/github.com/Meow0x7E/motd-zsh/archive/refs/tags/v"$pkgver"-"$pkgrel".tar.gz)
 noextract=()
-sha512sums=('5c8ce2bb9e142f640000cca0e6bcf18a58e02c23c5f23c195e79a68eb00a19fe00638e03ca8263a7022b8134d8d00e6d863733acc5182fbc7b93314e680e0427')
-b2sums=('bc33ff1c405bc9a9099e3edcbfdb8e1b8476d976d82a705960803797023a72e3473d25e6c1775f23cc25561c230addee33186d8447c036959436077e6fad1c26')
+sha512sums=('79c5dbe76dc7c5b5c6ae9d8ac81b5de9138ab640c5956b658ebe1369707de1b5d64d36cdb8fa88cf7be4375aca67e4d8b0f769b6a6d2e33e886fb9b22746fc02')
+b2sums=('2a3f7c51b82ebfcc1b232a2edf24509328e58d2780c70679111f295a85c3395724ba12205e6e0694fe7ff627d46668d76b7038c53e563a955b97f16ddfd83b37')
 validpgpkeys=()
 
 package() {
-	cd "${srcdir}/motd-zsh-${pkgver}"
-	install -Dm 755 "motd.zsh" "${pkgdir}/usr/bin/motd"
-	install -Dm 644 "ANSI_Shadow_Meow0x7E_editor.flf" "${pkgdir}/usr/share/figlet/fonts/ANSI_Shadow_Meow0x7E_editor.flf"
+	cd "${srcdir}"/motd-zsh-"$pkgver"-"${pkgrel}"
+	install -Dm 755 motd.sh "$pkgdir"/usr/bin/motd
+	install -Dm 644 motd.conf "$pkgdir"/usr/share/motd.conf
+
+	find motd -type f -exec install -Dm 644 {} "${pkgdir}"/usr/lib/{} \;
 }
 
 # vim:set sts=2 ts=2 sw=2 noexpandtab:
